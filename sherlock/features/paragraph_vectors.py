@@ -100,8 +100,14 @@ STOPWORDS_ENGLISH = None
 def initialise_nltk():
     start = datetime.now()
 
-    nltk.download("punkt")
-    nltk.download("stopwords")
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        nltk.download("punkt")
+    try:
+        nltk.data.find('corpora/stopwords')
+    except LookupError:
+        nltk.download("stopwords")
 
     global STOPWORDS_ENGLISH
 
